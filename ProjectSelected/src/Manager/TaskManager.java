@@ -32,8 +32,8 @@ public class TaskManager {
         task.attach(notificationObserver);
     }
     
-    public void addTask(String name, String description) {
-        TaskContext task = new TaskContext(name, description);
+    public void addTask(String name, String description , String type) {
+        TaskContext task = new TaskContext(name, description , type);
         addTask(task);
     }
     

@@ -12,11 +12,13 @@ public class TaskContext {
     private TaskState currentState;
     private String taskName;
     private String taskDescription;
+    private String taskType;
     private List<TaskObserver> observers;
     
-    public TaskContext(String taskName, String taskDescription) {
+    public TaskContext(String taskName, String taskDescription , String tasktype) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
+        this.taskType = tasktype;
         this.currentState = new TodoState();
         this.observers = new ArrayList<>();
     }
@@ -32,6 +34,9 @@ public class TaskContext {
     
     public String getTaskName() {
         return taskName;
+    }
+     public String getTaskType() {
+        return taskType;
     }
     
     public String getTaskDescription() {
@@ -64,6 +69,7 @@ public class TaskContext {
         return String.format("[%s] %s - %s", 
             currentState.getStateName(), 
             taskName, 
-            taskDescription);
+            taskDescription ,
+            taskType);
     }
 }
