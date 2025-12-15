@@ -145,19 +145,8 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddTaskButtonActionPerformed
-        String taskName = JOptionPane.showInputDialog(this, "Enter Task Name:", "Add New Task", JOptionPane.PLAIN_MESSAGE);
-        
-        if (taskName != null && !taskName.trim().isEmpty()) {
-            String taskDescription = JOptionPane.showInputDialog(this, "Enter Task Description:", "Add New Task", JOptionPane.PLAIN_MESSAGE);
-            
-            if (taskDescription != null && !taskDescription.trim().isEmpty()) {
-                taskManager.addTask(taskName.trim(), taskDescription.trim());
-                JOptionPane.showMessageDialog(this, 
-                    "Task '" + taskName + "' added successfully!\nInitial State: TODO", 
-                    "Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
+      new AddTaskPage().setVisible(true);
+          this.dispose();
     }//GEN-LAST:event_AddTaskButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
@@ -214,6 +203,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Task: " + task.getTaskName() + "\n" +
                 "Description: " + task.getTaskDescription() + "\n" +
                 "Current State: " + task.getState().getStateName() + "\n\n" +
+                "Type: "+ task.getTaskType() +"\n" +
                 "Move to next state?",
                 "Task Details",
                 JOptionPane.YES_NO_OPTION);

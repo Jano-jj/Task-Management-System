@@ -136,7 +136,7 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldUsername1ActionPerformed
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-        Dashboard d = new Dashboard();   // فتح الفورم الجديد
+        Dashboard d = new Dashboard(); 
         d.setVisible(true);
         this.dispose();       
     }//GEN-LAST:event_buttonLoginActionPerformed
