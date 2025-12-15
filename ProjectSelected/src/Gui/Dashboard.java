@@ -4,17 +4,24 @@
  */
 package Gui;
 
+import Manager.TaskManager;
+import State.TaskContext;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dell
  */
 public class Dashboard extends javax.swing.JFrame {
 
+    private TaskManager taskManager;
+    
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
+        taskManager = TaskManager.getInstance();
     }
 
    
@@ -138,19 +145,93 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddTaskButtonActionPerformed
+        String taskName = JOptionPane.showInputDialog(this, "Enter Task Name:", "Add New Task", JOptionPane.PLAIN_MESSAGE);
         
+        if (taskName != null && !taskName.trim().isEmpty()) {
+            String taskDescription = JOptionPane.showInputDialog(this, "Enter Task Description:", "Add New Task", JOptionPane.PLAIN_MESSAGE);
+            
+            if (taskDescription != null && !taskDescription.trim().isEmpty()) {
+                taskManager.addTask(taskName.trim(), taskDescription.trim());
+                JOptionPane.showMessageDialog(this, 
+                    "Task '" + taskName + "' added successfully!\nInitial State: TODO", 
+                    "Success", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_AddTaskButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
-        // TODO add your handling code here:
+        LoginPage loginPage = new LoginPage();
+        loginPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
     private void NotificationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificationButtonActionPerformed
-        // TODO add your handling code here:
+        String notifications = taskManager.getNotificationObserver().getNotificationLog();
+        
+        if (notifications.isEmpty()) {
+            notifications = "No notifications yet.\nTasks state changes will appear here.";
+        }
+        
+        JOptionPane.showMessageDialog(this, 
+            notifications, 
+            "Task Notifications (Observer Pattern)", 
+            JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_NotificationButtonActionPerformed
 
     private void ViewTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewTaskButtonActionPerformed
-        // TODO add your handling code here:
+        java.util.List<TaskContext> tasks = taskManager.getAllTasks();
+        
+        if (tasks.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "No tasks available.\nUse 'Add Task' to create tasks.", 
+                "View Tasks", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        String[] taskOptions = new String[tasks.size()];
+        for (int i = 0; i < tasks.size(); i++) {
+            TaskContext task = tasks.get(i);
+            taskOptions[i] = String.format("[%s] %s", 
+                task.getState().getStateName(), 
+                task.getTaskName());
+        }
+        
+        String selectedTask = (String) JOptionPane.showInputDialog(this,
+            "Select a task to change its state:\n(State Pattern Demonstration)",
+            "View Tasks",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            taskOptions,
+            taskOptions[0]);
+        
+        if (selectedTask != null) {
+            int selectedIndex = java.util.Arrays.asList(taskOptions).indexOf(selectedTask);
+            TaskContext task = tasks.get(selectedIndex);
+            
+            int choice = JOptionPane.showConfirmDialog(this,
+                "Task: " + task.getTaskName() + "\n" +
+                "Description: " + task.getTaskDescription() + "\n" +
+                "Current State: " + task.getState().getStateName() + "\n\n" +
+                "Move to next state?",
+                "Task Details",
+                JOptionPane.YES_NO_OPTION);
+            
+            if (choice == JOptionPane.YES_OPTION) {
+                String oldState = task.getState().getStateName();
+                task.nextState();
+                String newState = task.getState().getStateName();
+                
+                JOptionPane.showMessageDialog(this,
+                    "Task state updated!\n" +
+                    "From: " + oldState + "\n" +
+                    "To: " + newState + "\n\n" +
+                    "Check Notifications to see Observer pattern in action!",
+                    "State Changed",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_ViewTaskButtonActionPerformed
 
     /**
@@ -178,8 +259,6 @@ public class Dashboard extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
         //</editor-fold>
 
         /* Create and display the form */
