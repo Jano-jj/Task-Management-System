@@ -202,8 +202,8 @@ public class Dashboard extends javax.swing.JFrame {
             int choice = JOptionPane.showConfirmDialog(this,
                 "Task: " + task.getTaskName() + "\n" +
                 "Description: " + task.getTaskDescription() + "\n" +
-                "Current State: " + task.getState().getStateName() + "\n\n" +
-                "Type: "+ task.getTaskType() +"\n" +
+                "Current State: " + task.getState().getStateName() + "\n" +
+                "Type: "+ task.getTaskType() +"\n\n" +
                 "Move to next state?",
                 "Task Details",
                 JOptionPane.YES_NO_OPTION);

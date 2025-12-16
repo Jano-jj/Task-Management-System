@@ -163,16 +163,35 @@ Dashboard d = new Dashboard();
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void SaveButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButton1ActionPerformed
-         String title = TaskTitleTextField1.getText();
-    String desc = TaskDescriptionTextField.getText();
-    String type = TaskTypeCombobox.getSelectedItem().toString();
+                                                 
+    String taskName = TaskTitleTextField1.getText().trim();
+    String taskDescription = TaskDescriptionTextField.getText().trim();
+    Object typeObj = TaskTypeCombobox.getSelectedItem();
 
-    taskManager.addTask(title, desc, type);
+   
+    if (taskName.isEmpty() || taskDescription.isEmpty() || typeObj == null) {
+        JOptionPane.showMessageDialog(this, 
+            "Please fill in all fields before adding the task.", 
+            "Warning", 
+            JOptionPane.WARNING_MESSAGE);
+        return; 
+    }
 
-    JOptionPane.showMessageDialog(this,
-            "Task added successfully",
-            "Success",
-            JOptionPane.INFORMATION_MESSAGE);
+    String taskType = typeObj.toString();
+
+    
+    taskManager.addTask(taskName, taskDescription, taskType);
+
+    JOptionPane.showMessageDialog(this, 
+        "Task '" + taskName + "' added successfully!\nInitial State: TODO", 
+        "Success", 
+        JOptionPane.INFORMATION_MESSAGE);
+
+   
+    TaskTitleTextField1.setText("");
+    TaskDescriptionTextField.setText("");
+    TaskTypeCombobox.setSelectedIndex(0);
+
 
     
     }//GEN-LAST:event_SaveButton1ActionPerformed
