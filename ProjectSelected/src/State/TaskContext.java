@@ -1,5 +1,7 @@
 package State;
 
+import Factory.Task;
+import Factory.taskFactory;
 import Observer.TaskObserver;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +14,13 @@ public class TaskContext {
     private TaskState currentState;
     private String taskName;
     private String taskDescription;
-    private String taskType;
+    private Task taskType;
     private List<TaskObserver> observers;
     
-    public TaskContext(String taskName, String taskDescription , String tasktype) {
+    public TaskContext(String taskName, String taskDescription , String taskType) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-        this.taskType = tasktype;
+        this.taskType = taskFactory.createTask(taskType);
         this.currentState = new TodoState();
         this.observers = new ArrayList<>();
     }
@@ -36,7 +38,7 @@ public class TaskContext {
         return taskName;
     }
      public String getTaskType() {
-        return taskType;
+        return taskType.getTypeName();
     }
     
     public String getTaskDescription() {
