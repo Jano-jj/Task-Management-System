@@ -4,7 +4,7 @@
  */
 package Gui;
 
-import Manager.TaskManager;
+import Sigelton.taskSingelton;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
 
 
 public class AddTaskPage extends javax.swing.JFrame {
-       private TaskManager taskManager;
+       private taskSingelton taskManager;
     /**
      * Creates new form AddTaskPage
      */
     public AddTaskPage() {
         initComponents();
-        taskManager = TaskManager.getInstance();
+        taskManager = taskSingelton.getInstance();
     }
 
      

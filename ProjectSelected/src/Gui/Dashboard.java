@@ -4,7 +4,7 @@
  */
 package Gui;
 
-import Manager.TaskManager;
+import Sigelton.taskSingelton;
 import State.TaskContext;
 import javax.swing.JOptionPane;
 
@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  */
 public class Dashboard extends javax.swing.JFrame {
 
-    private TaskManager taskManager;
+    private taskSingelton taskManager;
     
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
-        taskManager = TaskManager.getInstance();
+        taskManager = taskSingelton.getInstance();
     }
 
    

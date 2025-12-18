@@ -1,4 +1,4 @@
-package Manager;
+package Sigelton;
 
 import State.TaskContext;
 import Observer.TaskObserver;
@@ -10,19 +10,19 @@ import java.util.List;
  * Centralized Task Manager
  * Manages all tasks and observers in the system
  */
-public class TaskManager {
-    private static TaskManager instance;
+public class taskSingelton {
+    private static taskSingelton instance;
     private List<TaskContext> tasks;
     private NotificationObserver notificationObserver;
     
-    private TaskManager() {
+    private taskSingelton() {
         tasks = new ArrayList<>();
         notificationObserver = new NotificationObserver("System");
     }
     
-    public static TaskManager getInstance() {
+    public static taskSingelton getInstance() {
         if (instance == null) {
-            instance = new TaskManager();
+            instance = new taskSingelton();
         }
         return instance;
     }
