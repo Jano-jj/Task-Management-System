@@ -4,7 +4,7 @@
  */
 package Gui;
 
-import Sigelton.taskSingelton;
+import Singelton.taskSingelton;
 import javax.swing.JOptionPane;
 
 /**

@@ -1,4 +1,4 @@
-package Sigelton;
+package Singelton;
 
 import State.TaskContext;
 import Observer.TaskObserver;
